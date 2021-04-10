@@ -1,8 +1,7 @@
-let config = {
+let confight = {
     type: Phaser.CANVAS,
     width: 640,
     height: 480,
-    scenes: [Menu, Play],
 }
-    
-let game = new Phaser.Game(config);
+
+let game = new Phaser.Game();
