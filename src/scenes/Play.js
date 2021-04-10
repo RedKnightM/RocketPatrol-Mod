@@ -42,6 +42,5 @@ class Play extends Phaser.Scene {
             game.config.height, 
             0xFFFFFF
         ).setOrigin(0 ,0);
-
     }
 }
