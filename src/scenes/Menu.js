@@ -23,6 +23,7 @@ class Menu extends Phaser.Scene {
               bottom: 5,
             },
             fixedWidth: 0
+        
         }
 
         this.add.text(
