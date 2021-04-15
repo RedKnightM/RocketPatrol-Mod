@@ -169,25 +169,38 @@ class Play extends Phaser.Scene {
             this.ship3.update();
         }
 
-        if (this.checkCollision(this.p1Rocket || this.p2Rocket, this.ship3)) {
+        if (this.checkCollision(this.p1Rocket, this.ship3)) {
             this.p1Rocket.reset();
+            this.shipExplode(this.ship3);
+            return true;
+            
+        } else if (this.checkCollision(this.p1Rocket, this.ship2)) {
+            this.p1Rocket.reset();
+            this.shipExplode(this.ship2);
+       
+            return true;
+            
+        } else if (this.checkCollision(this.p1Rocket, this.ship1)) {
+            this.p1Rocket.reset();
+            this.shipExplode(this.ship1);
+        
+            return true;
+        }
+
+        if (this.checkCollision(this.p2Rocket, this.ship3)) {
             this.p2Rocket.reset();
             this.shipExplode(this.ship3);
             return true;
             
-        } else if (this.checkCollision(this.p1Rocket || this.p2Rocket, this.ship2)) {
-            this.p1Rocket.reset();
+        } else if (this.checkCollision(this.p2Rocket, this.ship2)) {
             this.p2Rocket.reset();
             this.shipExplode(this.ship2);
        
             return true;
             
-        } else if (this.checkCollision(this.p1Rocket || this.p2Rocket, this.ship1)) {
-            this.p1Rocket.reset();
+        } else if (this.checkCollision(this.p2Rocket, this.ship1)) {
             this.p2Rocket.reset();
             this.shipExplode(this.ship1);
-        
-            return true;
         }
 
         if (this.gameOver && Phaser.Input.Keyboard.JustDown(keyLEFT)) {
