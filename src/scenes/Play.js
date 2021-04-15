@@ -26,8 +26,22 @@ class Play extends Phaser.Scene {
             640, 
             480, 
             'starfield').setOrigin(0,0);
+        
+        this.starfield2 = this.add.tileSprite(
+            640, 
+            0, 
+            1280, 
+            480, 
+            'starfield').setOrigin(0,0);
 
-        this.p1Rocket = new Rocket(
+        this.p1Rocket = new P1Rocket(
+            this, 
+            game.config.width/2,
+            game.config.height - borderUISize - borderPadding,
+            'rocket'
+        );
+
+        this.p2Rocket = new P2Rocket(
             this, 
             game.config.width/2,
             game.config.height - borderUISize - borderPadding,
@@ -98,6 +112,9 @@ class Play extends Phaser.Scene {
         keyR = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.R);
         keyLEFT = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.LEFT);
         keyRIGHT = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.RIGHT);
+        keyA = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.A);
+        keyD = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.D);
+        keyK = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.K);
 
         this.anims.create({
             key: 'explode',
@@ -136,30 +153,38 @@ class Play extends Phaser.Scene {
     }
 
     update() {
+
         if (this.gameOver && Phaser.Input.Keyboard.JustDown(keyR)) {
             this.scene.restart();
         }
         
         this.starfield.tilePositionX -= 4;
+        this.starfield2.tilePositionX -= 4;
 
         if (!this.gameOver) {
             this.p1Rocket.update();
+            this.p2Rocket.update();
             this.ship1.update();
             this.ship2.update();
             this.ship3.update();
         }
 
-        if (this.checkCollision(this.p1Rocket, this.ship3)) {
+        if (this.checkCollision(this.p1Rocket || this.p2Rocket, this.ship3)) {
             this.p1Rocket.reset();
+            this.p2Rocket.reset();
             this.shipExplode(this.ship3);
             return true;
-        } else if (this.checkCollision(this.p1Rocket, this.ship2)) {
+            
+        } else if (this.checkCollision(this.p1Rocket || this.p2Rocket, this.ship2)) {
             this.p1Rocket.reset();
+            this.p2Rocket.reset();
             this.shipExplode(this.ship2);
        
             return true;
-        } else if (this.checkCollision(this.p1Rocket, this.ship1)) {
+            
+        } else if (this.checkCollision(this.p1Rocket || this.p2Rocket, this.ship1)) {
             this.p1Rocket.reset();
+            this.p2Rocket.reset();
             this.shipExplode(this.ship1);
         
             return true;
