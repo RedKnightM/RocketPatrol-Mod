@@ -1,7 +1,6 @@
 class Play extends Phaser.Scene {
     constructor() {
         super("playScene");
-    
     }
 
     preload () {
@@ -73,18 +72,21 @@ class Play extends Phaser.Scene {
             game.config.width, 
             borderUISize, 
             0xFFFFFF).setOrigin(0 ,0);
+
 	    this.add.rectangle(
             0, 
             game.config.height - borderUISize, 
             game.config.width, 
             borderUISize, 
             0xFFFFFF).setOrigin(0 ,0);
+
 	    this.add.rectangle(
             0, 
             0, 
             borderUISize, 
             game.config.height, 
             0xFFFFFF).setOrigin(0 ,0);
+            
 	    this.add.rectangle(
             game.config.width - borderUISize, 
             0, 
@@ -103,24 +105,25 @@ class Play extends Phaser.Scene {
             frameRate: 30
         });
         
-        this.p1Score = 0;
-        let scoreConfig = {
-            fontFamily: 'Courier',
-            fontSize: '28px',
-            backgroundColor: '#F3B141',
-            color: '#843605',
-            align: 'right',
-            padding: {
-              top: 5,
-              bottom: 5,
-            },
-            fixedWidth: 100
-        }
-        this.scoreLeft = this.add.text(
-            borderUISize + borderPadding, 
-            borderUISize + borderPadding*2, 
-            this.p1Score, 
-            scoreConfig);
+        // this.p1Score = 0;
+        // let scoreConfig = {
+        //     fontFamily: 'Courier',
+        //     fontSize: '28px',
+        //     backgroundColor: '#F3B141',
+        //     color: '#843605',
+        //     align: 'right',
+        //     padding: {
+        //       top: 5,
+        //       bottom: 5,
+        //     },
+        //     fixedWidth: 100
+        // }
+
+        // this.scoreLeft = this.add.text(
+        //     borderUISize + borderPadding, 
+        //     borderUISize + borderPadding*2, 
+        //     this.p1Score, 
+        //     scoreConfig);
 
         this.gameOver = false;
 
@@ -192,7 +195,7 @@ class Play extends Phaser.Scene {
             }
         );
         this.sound.play('sfx_explosion');
-        this.p1Score += ship.points;
-        this.scoreLeft.text = this.p1Score; 
+        // this.p1Score += ship.points;
+        // this.scoreLeft.text = this.p1Score; 
     }
 }
