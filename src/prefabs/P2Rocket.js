@@ -15,7 +15,7 @@ class P2Rocket extends Phaser.GameObjects.Sprite {
             }
         }
         
-        if (Phaser.Input.Keyboard.JustDown(keyF) && !this.isFiring) {
+        if (Phaser.Input.Keyboard.JustDown(keyW) && !this.isFiring) {
             this.isFiring = true;
             this.sfxRocket.play();
         }
