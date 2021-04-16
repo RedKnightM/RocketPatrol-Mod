@@ -8,6 +8,7 @@ class Play extends Phaser.Scene {
         this.load.image('p1Rocket', 'assets/p1rocket.png');
         this.load.image('p2Rocket', 'assets/p2rocket.png');
         this.load.image('spaceship', 'assets/spaceship.png');
+        this.load.image('fastShip', 'assets/fastShip.png');
         this.load.spritesheet(
             'explosion', 
             'assets/explosion.png', {
@@ -36,14 +37,14 @@ class Play extends Phaser.Scene {
 
         this.p1Rocket = new P1Rocket(
             this, 
-            game.config.width/2,
+            game.config.width/2 - 20,
             game.config.height - borderUISize - borderPadding,
             'p1Rocket'
         );
 
         this.p2Rocket = new P2Rocket(
             this, 
-            game.config.width/2,
+            game.config.width/2 + 20,
             game.config.height - borderUISize - borderPadding,
             'p2Rocket'
         );
@@ -56,13 +57,13 @@ class Play extends Phaser.Scene {
             0,
             30).setOrigin(0, 0); 
         
-        this.ship2 = new Ship(
+        this.ship2 = new fastShip(
             this, 
             game.config.width + borderUISize*3, 
             borderUISize*5 + borderPadding*2, 
-            'spaceship', 
+            'fastShip', 
             0,
-            20).setOrigin(0,0);
+            40).setOrigin(0,0);
         
         this.ship3 = new Ship(
             this, 
@@ -72,13 +73,13 @@ class Play extends Phaser.Scene {
             0,
             10).setOrigin(0,0);
 
-        this.ship4 = new Ship(
+        this.ship4 = new fastShip(
             this, 
             game.config.width - borderUISize*3, 
             borderUISize*7 + borderPadding*6, 
-            'spaceship', 
+            'fastShip', 
             0,
-            5).setOrigin(0,0);
+            15).setOrigin(0,0);
 
 
         this.add.rectangle(
@@ -200,8 +201,8 @@ class Play extends Phaser.Scene {
             this.scene.restart();
         }
         
-        this.starfield.tilePositionX -= 4;
-        this.starfield2.tilePositionX -= 4;
+        this.starfield.tilePositionX -= 3;
+        this.starfield2.tilePositionX -= 3;
 
         if (!this.gameOver) {
             this.p1Rocket.update();
@@ -249,11 +250,11 @@ class Play extends Phaser.Scene {
             return true;
         }
 
-        if (this.checkCollision(this.p1Rocket, this.ship4)) {
-            this.p1Rocket.reset();
+        if (this.checkCollision(this.p2Rocket, this.ship4)) {
+            this.p2Rocket.reset();
             this.shipExplode(this.ship4);
-            this.p1Score += this.ship4.points;
-            this.scoreLeft.text = this.p1Score;
+            this.p2Score += this.ship4.points;
+            this.scoreRight.text = this.p1Score;
             
             return true;
             
