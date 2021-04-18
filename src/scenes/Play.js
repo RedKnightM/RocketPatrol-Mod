@@ -173,7 +173,7 @@ class Play extends Phaser.Scene {
             this.p2Score, 
             p2ScoreConfig);
 
-        this.gameOver = false;
+        
 
         let textDisplay = {
             fontFamily: 'Courier',
@@ -195,6 +195,9 @@ class Play extends Phaser.Scene {
             textDisplay);
 
         textDisplay.fixedWidth = 0;
+        
+        this.gameOver = false;
+        
         this.clock = this.time.delayedCall(
             game.settings.gameTimer, () => {
                 if (this.p1Score > this.p2Score) {

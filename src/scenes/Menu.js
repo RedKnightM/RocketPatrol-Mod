@@ -10,6 +10,8 @@ class Menu extends Phaser.Scene {
         this.load.audio('sfx_expert', 'assets/Expert.wav');
         this.load.audio('sfx_explosion', 'assets/explosion38.wav');
         this.load.audio('sfx_rocket', 'assets/rocket_shot.wav');
+        this.load.audio('music_novice', 'assets/RP_NoviceMusic.wav');
+        this.load.audio('music_expert', 'assets/RP_ExpertMusic.wav');
         this.load.image('menu_ship', 'assets/spaceship.png');
         this.load.image('menu_shipTwo', 'assets/fastShip.png');
         this.load.image('p1Rocket', 'assets/p1Rocket.png');
@@ -143,6 +145,7 @@ class Menu extends Phaser.Scene {
                 gameTimer: 60000
             }
             this.sound.play('sfx_novice');
+            this.sound.play('music_novice');
             this.inMenu = false;
             this.scene.start('playScene');
         }
@@ -152,6 +155,7 @@ class Menu extends Phaser.Scene {
                 gameTimer: 45000
             }
             this.sound.play('sfx_expert');
+            this.sound.play('music_expert');
             this.inMenu = false;
             this.scene.start('playScene');
 

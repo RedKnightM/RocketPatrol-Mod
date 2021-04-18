@@ -13,9 +13,11 @@ class Ship extends Phaser.GameObjects.Sprite {
             this.x = game.config.width;
         }
 
-        if (game.settings.gameTimer < game.settings.gameTimer/2) {
+        if (game.settings.gameTimer <= game.settings.gameTimer/2) {
             this.moveSpeed += 1;
             console.log('Speed up!');
+
+            return true;
         }
     }
 
