@@ -10,9 +10,49 @@ class Menu extends Phaser.Scene {
         this.load.audio('sfx_expert', 'assets/Expert.wav');
         this.load.audio('sfx_explosion', 'assets/explosion38.wav');
         this.load.audio('sfx_rocket', 'assets/rocket_shot.wav');
+        this.load.image('menu_ship', 'assets/spaceship.png');
+        this.load.image('menu_shipTwo', 'assets/fastShip.png');
+        this.load.image('p1Rocket', 'assets/p1Rocket.png');
+        this.load.image('p2Rocket', 'assets/p2Rocket.png');
     }
 
     create() {
+        this.ship1 = this.add.sprite(
+            130,
+            50,
+            'menu_ship').setOrigin(0.5);
+        this.ship2 = this.add.sprite(
+            240,
+            50,
+            'menu_ship').setOrigin(0.5);
+        this.ship3 = this.add.sprite(
+            185,
+            100,
+            'menu_ship').setOrigin(0.5);
+        
+        this.ship1 = this.add.sprite(
+            1030,
+            50,
+            'menu_shipTwo').setOrigin(0.5);
+        this.ship2 = this.add.sprite(
+            1140,
+            50,
+            'menu_shipTwo').setOrigin(0.5);
+        this.ship3 = this.add.sprite(
+            1085,
+            100,
+            'menu_shipTwo').setOrigin(0.5);
+        
+        this.p1Rocket = this.add.sprite(
+            185,
+            300,
+          'p1Rocket').setOrigin(0.5);
+
+        this.p2Rocket = this.add.sprite(
+            1085,
+            300,
+            'p2Rocket').setOrigin(0.5);
+
         let menuConfig = {
             fontFamily: 'Courier',
             fontSize: '28px',
@@ -45,42 +85,48 @@ class Menu extends Phaser.Scene {
             'ROCKET PATROL', 
             titleConfig).setOrigin(0.5);
         
-        menuConfig.backgroundColor = "red";
+        menuConfig.backgroundColor = "#eb7380";
         menuConfig.color = "white";
 
         this.add.text(
             game.config.width/2 - 305, 
             game.config.height/2 - 20,
-            '[A] and [D] to move & [W] to fire', 
+            '[A] and [D] to move & [W] to fire ', 
             menuConfig).setOrigin(0.5);
 
         this.add.text(
             game.config.width/2 - 490, 
             game.config.height/2 - 64,
-            'Player One:', 
+            'Player One: ', 
             menuConfig).setOrigin(0.5);
 
-        menuConfig.backgroundColor = "blue";
+        menuConfig.backgroundColor = "#b689d5";
 
         this.add.text(
-            game.config.width/2 + 315, 
+            game.config.width/2 + 316, 
             game.config.height/2 - 20,
-            '⇦ ⇨ arrows to move & ⇧ to fire', 
+            '⇦ ⇨ arrows to move & ⇧ to fire ', 
             menuConfig).setOrigin(0.5);
 
         this.add.text(
             game.config.width/2 + 492, 
             game.config.height/2 - 64,
-            'Player Two:', 
+            'Player Two: ', 
             menuConfig).setOrigin(0.5);
         
-        menuConfig.backgroundColor = '#00FF00';
-        menuConfig.color = '#000';
+        menuConfig.backgroundColor = '#89d5d1';
+        menuConfig.color = 'white';
         
         this.add.text(
             game.config.width/2, 
             game.config.height/2 + borderUISize*2 + borderPadding*2, 
-            'Press ⇦ for Novice or ⇨ for Expert', 
+            ' Press ⇦ for Novice or ⇨ for Expert ', 
+            menuConfig).setOrigin(0.5);
+        
+            this.add.text(
+            game.config.width/2, 
+            game.config.height/2 + borderUISize*2 + 64, 
+            ' Highest score wins! ', 
             menuConfig).setOrigin(0.5);
         
         keyLEFT = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.LEFT);
@@ -88,12 +134,16 @@ class Menu extends Phaser.Scene {
     }
 
     update() {
+        this.ship1.spritePositionY -= 4;
+        this.ship1.spritePositionY += 4;
+
         if (Phaser.Input.Keyboard.JustDown(keyLEFT)) {
             game.settings = {
                 spaceshipSpeed: 3,
                 gameTimer: 60000
             }
             this.sound.play('sfx_novice');
+            this.inMenu = false;
             this.scene.start('playScene');
         }
         if (Phaser.Input.Keyboard.JustDown(keyRIGHT)) {
@@ -102,7 +152,9 @@ class Menu extends Phaser.Scene {
                 gameTimer: 45000
             }
             this.sound.play('sfx_expert');
+            this.inMenu = false;
             this.scene.start('playScene');
+
         }
     }
 }

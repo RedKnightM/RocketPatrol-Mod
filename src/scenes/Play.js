@@ -87,7 +87,7 @@ class Play extends Phaser.Scene {
             borderUISize + borderPadding, 
             game.config.width,
             borderUISize * 2,
-            0x00FF00).setOrigin(0,0);
+            0xff89d5d1).setOrigin(0,0);
             
 	    this.add.rectangle(
             0, 
@@ -132,11 +132,12 @@ class Play extends Phaser.Scene {
             frameRate: 30
         });
         
+        
         this.p1Score = 0;
         let p1ScoreConfig = {
             fontFamily: 'Courier',
             fontSize: '28px',
-            backgroundColor: 'red',
+            backgroundColor: '#eb7380',
             color: 'white',
             align: 'right',
             padding: {
@@ -156,7 +157,7 @@ class Play extends Phaser.Scene {
         let p2ScoreConfig = {
             fontFamily: 'Courier',
             fontSize: '28px',
-            backgroundColor: 'blue',
+            backgroundColor: '#b689d5',
             color: 'white',
             align: 'left',
             padding: {
@@ -167,7 +168,7 @@ class Play extends Phaser.Scene {
         }
 
         this.scoreRight = this.add.text(
-            borderUISize + borderPadding*103, 
+            borderUISize + borderPadding*103.5, 
             borderUISize + borderPadding*2, 
             this.p2Score, 
             p2ScoreConfig);
@@ -187,12 +188,25 @@ class Play extends Phaser.Scene {
             fixedWidth: 100
         }
 
+        this.fireUI = this.add.text(
+            borderUISize + borderPadding*52, 
+            borderUISize + borderPadding*2, 
+            'FIRE!', 
+            textDisplay);
+
         textDisplay.fixedWidth = 0;
-        this.clock = this.time.delayedCall(game.settings.gameTimer, () => {
-            this.add.text(game.config.width/2, game.config.height/2, 'GAME OVER', textDisplay).setOrigin(0.5);
-            this.add.text(game.config.width/2, game.config.height/2 + 64, '[R]estart or [<-] to Menu', textDisplay).setOrigin(0.5);
-            this.gameOver = true;
-        }, null, this); 
+        this.clock = this.time.delayedCall(
+            game.settings.gameTimer, () => {
+                if (this.p1Score > this.p2Score) {
+                    this.add.text(game.config.width/2, game.config.height/2, 'Player One wins!', textDisplay).setOrigin(0.5);
+                } else if (this.p1Score < this.p2Score) {
+                    this.add.text(game.config.width/2, game.config.height/2, 'Player Two wins!', textDisplay).setOrigin(0.5);
+                } else {
+                    this.add.text(game.config.width/2, game.config.height/2, 'Draw!', textDisplay).setOrigin(0.5);
+                };
+                this.add.text(game.config.width/2, game.config.height/2 + 64, '[R]estart or [<-] for Menu', textDisplay).setOrigin(0.5);
+                this.gameOver = true;
+            }, null, this); 
     }
 
     update() {
@@ -254,10 +268,9 @@ class Play extends Phaser.Scene {
             this.p2Rocket.reset();
             this.shipExplode(this.ship4);
             this.p2Score += this.ship4.points;
-            this.scoreRight.text = this.p1Score;
+            this.scoreRight.text = this.p2Score;
             
-            return true;
-            
+            return true;    
         } 
 
         if (this.checkCollision(this.p2Rocket, this.ship3)) {
@@ -266,23 +279,24 @@ class Play extends Phaser.Scene {
             this.p2Score += this.ship3.points;
             this.scoreRight.text = this.p2Score;
             
-            return true;
-            
-        } 
+            return true;  
+        }
+
         if (this.checkCollision(this.p2Rocket, this.ship2)) {
             this.p2Rocket.reset();
             this.shipExplode(this.ship2);
             this.p2Score += this.ship2.points;
             this.scoreRight.text = this.p2Score;
        
-            return true;
-            
+            return true;    
         } 
         if (this.checkCollision(this.p2Rocket, this.ship1)) {
             this.p2Rocket.reset();
             this.shipExplode(this.ship1);
             this.p2Score += this.ship1.points;
             this.scoreRight.text = this.p2Score;
+
+            return true;
         }
 
         if (this.gameOver && Phaser.Input.Keyboard.JustDown(keyLEFT)) {
@@ -296,9 +310,9 @@ class Play extends Phaser.Scene {
             rocket.x < ship.x + ship.width && 
             rocket.y + rocket. height > ship.y && 
             rocket.y < ship.y + ship.height) {
-                ship.alpha = 0;
-                rocket.reset();
-                return true;
+            ship.alpha = 0;
+            rocket.reset();
+            return true;
         } else {
             return false;
         }
