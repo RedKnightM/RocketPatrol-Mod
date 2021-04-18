@@ -9,6 +9,7 @@ class Play extends Phaser.Scene {
         this.load.image('p2Rocket', 'assets/p2rocket.png');
         this.load.image('spaceship', 'assets/spaceship.png');
         this.load.image('fastShip', 'assets/fastShip.png');
+        this.load.audio('music', 'assets/RP_Music.wav');
         this.load.spritesheet(
             'explosion', 
             'assets/explosion.png', {
@@ -80,7 +81,6 @@ class Play extends Phaser.Scene {
             'fastShip', 
             0,
             15).setOrigin(0,0);
-
 
         this.add.rectangle(
             0, 
