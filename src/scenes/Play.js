@@ -4,7 +4,10 @@ class Play extends Phaser.Scene {
     }
 
     preload () {
-        this.load.image('starfield', 'assets/starfield.png');
+        this.load.image('starfieldRed', 'assets/starfieldRed.png');
+        this.load.image('starfieldBlue', 'assets/starfieldBlue.png');
+        this.load.image('starfieldYellow', 'assets/starfieldYellow.png');
+        this.load.image('starfieldWhite', 'assets/starfieldWhite.png');
         this.load.image('p1Rocket', 'assets/p1rocket.png');
         this.load.image('p2Rocket', 'assets/p2rocket.png');
         this.load.image('spaceship', 'assets/spaceship.png');
@@ -22,20 +25,34 @@ class Play extends Phaser.Scene {
     }
 
     create() {
-        this.starfield = this.add.tileSprite(
+        this.starfieldW = this.add.tileSprite(
             0, 
-            0, 
-            640, 
-            480, 
-            'starfield').setOrigin(0,0);
-        
-        this.starfield2 = this.add.tileSprite(
-            640, 
             0, 
             1280, 
             480, 
-            'starfield').setOrigin(0,0);
+            'starfieldWhite').setOrigin(0,0);
+        
+        this.starfieldY = this.add.tileSprite(
+            0, 
+            0, 
+            1280, 
+            480, 
+            'starfieldYellow').setOrigin(0,0);
 
+        this.starfieldB = this.add.tileSprite(
+            0, 
+            0, 
+            1280, 
+            480, 
+            'starfieldBlue').setOrigin(0,0);
+        
+        this.starfieldR = this.add.tileSprite(
+            0, 
+            0, 
+            1280, 
+            480, 
+            'starfieldRed').setOrigin(0,0);
+        
         this.p1Rocket = new P1Rocket(
             this, 
             game.config.width/2 - 20,
@@ -176,10 +193,10 @@ class Play extends Phaser.Scene {
         
 
         let textDisplay = {
-            fontFamily: 'Courier',
+            fontFamily: 'Copperplate',
             fontSize: '28px',
-            backgroundColor: '#F3B141',
-            color: '#843605',
+            backgroundColor: '#89d5d1',
+            color: 'black',
             align: 'right',
             padding: {
               top: 5,
@@ -218,8 +235,32 @@ class Play extends Phaser.Scene {
             this.scene.restart();
         }
         
-        this.starfield.tilePositionX -= 3;
-        this.starfield2.tilePositionX -= 3;
+        if (keyLEFT.isDown || keyA.isDown) {
+            this.starfieldW.tilePositionX -= 1;
+            this.starfieldY.tilePositionX -= 1.5;
+            this.starfieldB.tilePositionX -= 2;
+            this.starfieldR.tilePositionX -= 3;   
+        }
+        if (keyRIGHT.isDown || keyD.isDown) {
+            this.starfieldW.tilePositionX += 1;
+            this.starfieldY.tilePositionX += 1.5;
+            this.starfieldB.tilePositionX += 2;
+            this.starfieldR.tilePositionX += 3; 
+        }
+
+        if (keyLEFT.isDown && keyD.isDown) {
+            this.starfieldW.tilePositionX -= 0.5;
+            this.starfieldY.tilePositionX -= 1;
+            this.starfieldB.tilePositionX -= 1.5;
+            this.starfieldR.tilePositionX -= 2.5;   
+        }
+
+        if (keyRIGHT.isDown && keyA.isDown) {
+            this.starfieldW.tilePositionX += 0.5;
+            this.starfieldY.tilePositionX += 1;
+            this.starfieldB.tilePositionX += 1.5;
+            this.starfieldR.tilePositionX += 2.5;  
+        }
 
         if (!this.gameOver) {
             this.p1Rocket.update();
