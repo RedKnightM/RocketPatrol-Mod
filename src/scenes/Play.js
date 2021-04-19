@@ -38,7 +38,7 @@ class Play extends Phaser.Scene {
             1280, 
             480, 
             'starfieldYellow').setOrigin(0,0);
-
+            
         this.starfieldB = this.add.tileSprite(
             0, 
             0, 
