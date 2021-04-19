@@ -235,27 +235,28 @@ class Play extends Phaser.Scene {
             this.scene.restart();
         }
         
-        if (keyLEFT.isDown || keyA.isDown) {
+        if ((keyLEFT.isDown && !this.p2Rocket.isFiring) || (keyA.isDown && !this.p1Rocket.isFiring)) {
             this.starfieldW.tilePositionX -= 1;
             this.starfieldY.tilePositionX -= 1.5;
             this.starfieldB.tilePositionX -= 2;
             this.starfieldR.tilePositionX -= 3;   
         }
-        if (keyRIGHT.isDown || keyD.isDown) {
+
+        if ((keyRIGHT.isDown && !this.p2Rocket.isFiring) || (keyD.isDown && !this.p1Rocket.isFiring)) {
             this.starfieldW.tilePositionX += 1;
             this.starfieldY.tilePositionX += 1.5;
             this.starfieldB.tilePositionX += 2;
             this.starfieldR.tilePositionX += 3; 
         }
 
-        if (keyLEFT.isDown && keyD.isDown) {
+        if ((keyLEFT.isDown && !this.p2Rocket.isFiring) || (keyA.isDown && !this.p1Rocket.isFiring)) {
             this.starfieldW.tilePositionX -= 0.5;
             this.starfieldY.tilePositionX -= 1;
             this.starfieldB.tilePositionX -= 1.5;
             this.starfieldR.tilePositionX -= 2.5;   
         }
 
-        if (keyRIGHT.isDown && keyA.isDown) {
+        if ((keyRIGHT.isDown && !this.p2Rocket.isFiring) || (keyD.isDown && !this.p1Rocket.isFiring)) {
             this.starfieldW.tilePositionX += 0.5;
             this.starfieldY.tilePositionX += 1;
             this.starfieldB.tilePositionX += 1.5;
